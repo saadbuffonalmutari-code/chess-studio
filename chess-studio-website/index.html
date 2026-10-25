@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#101914" />
+  <meta name="description" content="Chess Studio — play quick online chess games, improve your rating, and challenge players." />
+  <title>Chess Studio — Play chess online</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.3/chess.min.js"></script>
+  <style>
+    :root{--bg:#101914;--bg2:#17231b;--panel:#1b2920;--panel2:#223126;--line:rgba(235,226,193,.13);--text:#f4f0e3;--muted:#a7b2a0;--gold:#e3c46f;--gold2:#f1d994;--green:#a8c69e;--red:#ef8e83;--light:#eee9d9;--dark:#54705a;--shadow:0 22px 70px rgba(0,0,0,.24)}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(ellipse at 18% -10%,rgba(151,177,121,.12),transparent 37%),radial-gradient(ellipse at 100% 45%,rgba(227,196,111,.06),transparent 35%),var(--bg);color:var(--text);font-family:'DM Sans',system-ui,-apple-system,BlinkMacSystemFont,sans-serif;min-height:100vh}button,input,select{font:inherit}button{cursor:pointer}button:disabled{opacity:.5;cursor:not-allowed}.hidden{display:none!important}.shell{max-width:1260px;margin:auto;padding:0 28px 54px}.topbar{height:86px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);gap:18px}.brand{display:flex;align-items:center;gap:12px;color:var(--text);text-decoration:none;font-family:Manrope,sans-serif;font-weight:800;font-size:15px;letter-spacing:.16em}.brand-mark{width:42px;height:42px;border:1px solid rgba(227,196,111,.55);border-radius:13px;display:grid;place-items:center;color:var(--gold);font-size:27px;background:linear-gradient(145deg,rgba(227,196,111,.16),rgba(227,196,111,.035));box-shadow:inset 0 0 22px rgba(227,196,111,.04)}.brand small{display:block;font-family:'DM Sans',sans-serif;font-size:10px;font-weight:600;letter-spacing:.21em;color:var(--muted);margin-top:4px}.top-actions{display:flex;align-items:center;gap:12px}.online-pill,.eyebrow{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:99px;padding:8px 12px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}.pulse{width:7px;height:7px;border-radius:50%;background:#96c68b;box-shadow:0 0 0 4px rgba(150,198,139,.12)}.user-pill{border:1px solid var(--line);background:rgba(255,255,255,.035);padding:9px 12px;border-radius:99px;display:flex;align-items:center;gap:9px;font-size:13px}.rating-dot{color:var(--gold);font-weight:700}.btn{border:1px solid transparent;border-radius:12px;padding:12px 17px;display:inline-flex;align-items:center;justify-content:center;gap:8px;font-size:13px;font-weight:700;transition:transform .18s ease,background .18s ease,border-color .18s ease}.btn:hover{transform:translateY(-1px)}.btn-primary{background:var(--gold);color:#202619;box-shadow:0 7px 24px rgba(227,196,111,.1)}.btn-primary:hover{background:var(--gold2)}.btn-secondary{background:rgba(255,255,255,.035);border-color:var(--line);color:var(--text)}.btn-secondary:hover{background:rgba(255,255,255,.07);border-color:rgba(227,196,111,.3)}.btn-quiet{color:var(--muted);background:transparent;border-color:transparent;padding:9px 11px}.btn-danger{background:rgba(239,142,131,.12);color:#ffb6ac;border-color:rgba(239,142,131,.24)}.btn-small{padding:9px 12px;border-radius:9px;font-size:12px}.hero{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(330px,.75fr);gap:64px;align-items:center;padding:66px 0 38px}.hero-copy h1{font-family:Manrope,sans-serif;font-size:clamp(42px,6vw,76px);letter-spacing:-.065em;line-height:1.03;margin:20px 0 22px;max-width:670px}.hero-copy h1 span{color:var(--gold)}.hero-copy p{font-size:16px;line-height:1.8;color:var(--muted);max-width:510px;margin:0}.hero-ctas{display:flex;align-items:center;gap:12px;margin-top:28px;flex-wrap:wrap}.feature-row{display:flex;gap:26px;margin-top:48px;flex-wrap:wrap}.feature{display:flex;align-items:center;gap:10px;color:var(--muted);font-size:12px}.feature-icon{width:32px;height:32px;border:1px solid var(--line);border-radius:10px;display:grid;place-items:center;color:var(--gold);font-size:15px}.auth-card,.surface{background:linear-gradient(150deg,rgba(34,49,38,.95),rgba(24,36,28,.98));border:1px solid var(--line);box-shadow:var(--shadow);border-radius:22px}.auth-card{padding:28px;position:relative;overflow:hidden}.auth-card:before{content:"";position:absolute;width:220px;height:220px;right:-95px;top:-110px;border-radius:50%;border:1px solid rgba(227,196,111,.12);box-shadow:0 0 0 25px rgba(227,196,111,.025),0 0 0 50px rgba(227,196,111,.018);pointer-events:none}.auth-tabs{display:flex;background:rgba(0,0,0,.18);padding:4px;border-radius:11px;gap:4px;margin-bottom:24px;position:relative}.auth-tab{flex:1;padding:10px;border:0;background:transparent;color:var(--muted);font-weight:700;font-size:12px;border-radius:8px}.auth-tab.active{background:var(--gold);color:#202619}.auth-title{font-family:Manrope,sans-serif;font-size:24px;letter-spacing:-.04em;margin:0 0 7px}.auth-sub{font-size:13px;color:var(--muted);margin:0 0 23px;line-height:1.55}.field{display:flex;flex-direction:column;gap:8px;margin:14px 0}.field label{color:#cbd2c2;font-size:12px;font-weight:600}.field input,.field select,.chat-input{width:100%;background:rgba(6,12,8,.38);border:1px solid rgba(235,226,193,.16);border-radius:10px;padding:13px 14px;color:var(--text);outline:none;transition:border-color .15s}.field input:focus,.field select:focus,.chat-input:focus{border-color:rgba(227,196,111,.7)}.field input::placeholder{color:#667566}.field select option{background:#1b2920}.auth-submit{width:100%;margin-top:10px}.fineprint{font-size:11px;color:#82907f;line-height:1.55;margin:14px 0 0}.message{min-height:18px;font-size:12px;color:var(--red);margin-top:10px}.stats-band{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--line);background:rgba(255,255,255,.02);border-radius:17px;margin:22px 0 0}.stat{padding:20px 25px;border-right:1px solid var(--line)}.stat:last-child{border-right:0}.stat strong{font-family:Manrope,sans-serif;font-size:25px;letter-spacing:-.04em;display:block}.stat span{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);display:block;margin-top:4px}.section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:18px;margin:40px 0 20px}.section-head h2{font-family:Manrope,sans-serif;font-size:26px;letter-spacing:-.04em;margin:8px 0 0}.section-head p{font-size:13px;color:var(--muted);margin:8px 0 0}.arena-header{padding:42px 0 8px;display:flex;justify-content:space-between;align-items:flex-end;gap:24px}.arena-header h1{font-family:Manrope,sans-serif;font-size:clamp(30px,4vw,46px);letter-spacing:-.055em;margin:10px 0 8px}.arena-header p{margin:0;color:var(--muted);line-height:1.6;font-size:14px}.arena-grid{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(270px,.72fr);gap:18px;margin-top:28px}.time-card-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.time-card{background:rgba(255,255,255,.028);border:1px solid var(--line);border-radius:17px;padding:20px 18px;text-align:left;color:var(--text);transition:.18s;min-height:180px;display:flex;flex-direction:column;align-items:flex-start}.time-card:hover{border-color:rgba(227,196,111,.5);transform:translateY(-2px);background:rgba(227,196,111,.05)}.time-symbol{color:var(--gold);font-size:23px}.time-card strong{font-family:Manrope,sans-serif;font-size:20px;margin-top:17px}.time-card span{color:var(--muted);font-size:12px;margin-top:4px}.time-card .play-label{color:var(--gold);margin-top:auto;padding-top:18px;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase}.side-panel{padding:24px}.panel-title{font-family:Manrope,sans-serif;font-size:17px;letter-spacing:-.03em;margin:0}.panel-sub{font-size:12px;color:var(--muted);line-height:1.6;margin:8px 0 0}.profile-summary{display:flex;align-items:center;gap:14px;padding:18px 0;border-bottom:1px solid var(--line);margin-bottom:18px}.avatar{width:48px;height:48px;border-radius:15px;background:linear-gradient(145deg,rgba(227,196,111,.22),rgba(227,196,111,.05));border:1px solid rgba(227,196,111,.25);display:grid;place-items:center;font-size:24px;color:var(--gold)}.profile-summary strong{font-size:14px;display:block}.profile-summary small{color:var(--muted);display:block;margin-top:5px;font-size:11px}.mini-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:16px 0 20px}.mini-stat{padding:12px 10px;background:rgba(0,0,0,.14);border-radius:10px}.mini-stat strong{display:block;font-size:17px}.mini-stat span{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}.status-box{border:1px solid rgba(227,196,111,.28);background:rgba(227,196,111,.06);border-radius:15px;padding:17px;display:flex;align-items:center;gap:13px;margin:18px 0}.spinner{width:27px;height:27px;border:2px solid rgba(227,196,111,.22);border-top-color:var(--gold);border-radius:50%;animation:spin .8s linear infinite;flex-shrink:0}@keyframes spin{to{transform:rotate(360deg)}}.status-box strong{font-size:13px;display:block}.status-box span{display:block;color:var(--muted);font-size:11px;margin-top:5px}.game-toolbar{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:30px 0 22px}.game-toolbar h1{font-family:Manrope,sans-serif;font-size:25px;margin:0;letter-spacing:-.04em}.game-toolbar p{margin:7px 0 0;color:var(--muted);font-size:12px}.game-layout{display:grid;grid-template-columns:minmax(360px,1fr) minmax(280px,350px);gap:18px;align-items:start}.board-surface{padding:22px}.player-strip{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:2px 0 13px}.player-data{display:flex;align-items:center;gap:10px;min-width:0}.player-avatar{width:36px;height:36px;flex-shrink:0;border-radius:11px;background:rgba(255,255,255,.07);display:grid;place-items:center;font-size:20px;color:var(--gold);border:1px solid var(--line)}.player-copy{min-width:0}.player-copy strong{font-size:13px;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:220px}.player-copy small{font-size:11px;color:var(--muted);display:block;margin-top:4px}.clock{font-family:Manrope,sans-serif;font-weight:800;font-variant-numeric:tabular-nums;font-size:20px;letter-spacing:-.03em;background:rgba(255,255,255,.045);border:1px solid var(--line);border-radius:10px;padding:9px 12px;min-width:90px;text-align:center}.clock.active{background:var(--gold);color:#202619;border-color:var(--gold)}.chessboard{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));aspect-ratio:1;width:100%;overflow:hidden;border-radius:8px;border:5px solid #2c3c2f;box-shadow:0 12px 30px rgba(0,0,0,.22);touch-action:manipulation}.square{position:relative;display:grid;place-items:center;aspect-ratio:1;border:0;padding:0;min-width:0;min-height:0;line-height:1}.square.light{background:#e9e4d2}.square.dark{background:#789078}.square.last{box-shadow:inset 0 0 0 999px rgba(235,203,91,.24)}.square.selected{box-shadow:inset 0 0 0 4px rgba(227,196,111,.95),inset 0 0 0 999px rgba(227,196,111,.13);z-index:1}.square .piece{font-family:'Arial Unicode MS','Segoe UI Symbol',serif;font-size:clamp(25px,4vw,55px);z-index:2;filter:drop-shadow(0 2px 1px rgba(0,0,0,.16));user-select:none}.piece.white{color:#fffdf5;text-shadow:0 1px 2px rgba(21,32,20,.8),0 0 1px #223126}.piece.black{color:#202921;text-shadow:0 1px 1px rgba(255,255,255,.28)}.square .dot{width:23%;height:23%;background:rgba(21,38,24,.34);border-radius:50%;position:absolute}.square .capture-ring{position:absolute;inset:4%;border:4px solid rgba(21,38,24,.35);border-radius:50%}.coord{position:absolute;font-size:clamp(7px,.9vw,11px);font-weight:700;z-index:3;line-height:1}.coord.rank{top:3px;left:4px}.coord.file{right:4px;bottom:3px}.light .coord{color:#5f775e}.dark .coord{color:#e7e9d9}.player-bottom{margin:13px 0 0}.board-footer{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:18px}.turn-status{font-size:12px;color:var(--muted);display:flex;align-items:center;gap:8px}.turn-dot{width:7px;height:7px;border-radius:50%;background:var(--gold)}.board-actions{display:flex;gap:8px;flex-wrap:wrap}.game-side{display:flex;flex-direction:column;gap:16px}.game-side .surface{padding:20px}.side-head{display:flex;justify-content:space-between;align-items:center;gap:10px;padding-bottom:14px;border-bottom:1px solid var(--line);margin-bottom:14px}.side-head h3{margin:0;font-family:Manrope,sans-serif;font-size:15px}.tiny-label{font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:var(--muted)}.moves-list{max-height:180px;overflow:auto;display:grid;grid-template-columns:32px 1fr 1fr;gap:0 8px;font-size:12px;font-variant-numeric:tabular-nums}.moves-list div{padding:7px 4px;border-radius:5px}.moves-list .move-no{color:#7e8e7c}.moves-list .latest{background:rgba(227,196,111,.12);color:var(--gold2)}.chat-messages{height:250px;overflow-y:auto;display:flex;flex-direction:column;gap:11px;padding:3px 3px 12px}.chat-line{font-size:12px;line-height:1.5;color:#dfe5d8;overflow-wrap:anywhere}.chat-line b{color:var(--gold);font-weight:700;margin-right:5px}.chat-line.mine b{color:var(--green)}.chat-line .time{color:#6f8070;font-size:10px;margin-left:6px}.chat-form{display:flex;gap:8px;border-top:1px solid var(--line);padding-top:13px}.chat-input{padding:11px 12px;font-size:12px;min-width:0}.chat-form .btn{padding:10px 13px}.game-result{border:1px solid rgba(227,196,111,.3);background:rgba(227,196,111,.08);border-radius:12px;padding:14px;margin-bottom:14px}.game-result strong{display:block;color:var(--gold2);font-size:14px}.game-result span{display:block;color:var(--muted);font-size:11px;margin-top:5px}.empty-state{color:var(--muted);font-size:12px;text-align:center;padding:24px 8px}.toast{position:fixed;bottom:22px;left:50%;transform:translate(-50%,20px);background:#e8dfc6;color:#18231a;padding:12px 17px;border-radius:10px;font-size:12px;font-weight:700;box-shadow:var(--shadow);opacity:0;pointer-events:none;transition:.2s;z-index:20;max-width:calc(100vw - 30px)}.toast.show{opacity:1;transform:translate(-50%,0)}.toast.error{background:#ffd4cd;color:#451d18}.footer{margin-top:44px;padding-top:20px;border-top:1px solid var(--line);color:#657462;font-size:11px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}.no-library{padding:14px;border:1px solid rgba(239,142,131,.3);background:rgba(239,142,131,.08);border-radius:10px;color:#ffb6ac;font-size:12px;line-height:1.5}
+    @media(max-width:900px){.hero{grid-template-columns:1fr;gap:30px;padding-top:45px}.auth-card{max-width:540px}.arena-grid{grid-template-columns:1fr}.game-layout{grid-template-columns:1fr}.game-side{display:grid;grid-template-columns:1fr 1fr;align-items:start}.chat-messages{height:220px}}
+    @media(max-width:620px){.shell{padding:0 14px 30px}.topbar{height:72px}.brand{font-size:12px;letter-spacing:.1em}.brand-mark{width:37px;height:37px}.online-pill{padding:7px 9px;font-size:9px}.top-actions{gap:7px}.user-pill{padding:8px;font-size:11px}.hero{padding-top:34px}.hero-copy h1{font-size:46px}.hero-copy p{font-size:14px}.feature-row{gap:12px;margin-top:30px}.auth-card{padding:22px}.stats-band .stat{padding:15px 12px}.stat strong{font-size:21px}.stat span{font-size:9px;letter-spacing:.06em}.arena-header{padding-top:28px;align-items:flex-start;flex-direction:column}.time-card-grid{gap:8px}.time-card{padding:14px 12px;min-height:160px}.time-card strong{font-size:16px}.time-card span{font-size:11px}.game-toolbar{padding-top:22px;align-items:flex-start}.game-toolbar h1{font-size:20px}.board-surface{padding:10px}.chessboard{border-width:3px}.square .piece{font-size:clamp(23px,8.5vw,42px)}.clock{min-width:73px;font-size:17px;padding:8px}.player-copy strong{max-width:140px}.game-side{display:flex}.board-footer{align-items:flex-start;flex-direction:column}.game-toolbar .btn{padding:9px 11px}.footer{margin-top:28px}}
+  </style>
+</head>
+<body>
+<div class="shell">
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="Chess Studio home" onclick="goHome();return false;">
+      <span class="brand-mark">♞</span><span>CHESS STUDIO<small>PLAY WITH PURPOSE</small></span>
+    </a>
+    <div class="top-actions">
+      <span class="online-pill"><i class="pulse"></i><span id="server-label">CONNECTING</span></span>
+      <div id="header-account"></div>
+    </div>
+  </header>
+
+  <main>
+    <section id="landing" class="hero">
+      <div class="hero-copy">
+        <span class="eyebrow"><i class="pulse"></i> YOUR NEXT MOVE STARTS HERE</span>
+        <h1>Think clearly.<br><span>Move boldly.</span></h1>
+        <p>Find your rhythm at the board. Play quick matches, face built-in opponents when the arena is quiet, and build your rating one game at a time.</p>
+        <div class="hero-ctas">
+          <button class="btn btn-primary" onclick="focusAuth('register')">Create your account <span aria-hidden="true">↗</span></button>
+          <button class="btn btn-secondary" onclick="focusAuth('login')">I already play</button>
+        </div>
+        <div class="feature-row">
+          <div class="feature"><span class="feature-icon">♜</span><span>Rated games</span></div>
+          <div class="feature"><span class="feature-icon">◷</span><span>1, 5 & 10 min</span></div>
+          <div class="feature"><span class="feature-icon">✧</span><span>Play anytime</span></div>
+        </div>
+        <div class="stats-band">
+          <div class="stat"><strong id="stat-players">—</strong><span>Players online</span></div>
+          <div class="stat"><strong id="stat-games">—</strong><span>Games in play</span></div>
+          <div class="stat"><strong id="stat-queues">3</strong><span>Time controls</span></div>
+        </div>
+      </div>
+
+      <section id="auth-card" class="auth-card" aria-label="Account access">
+        <div class="auth-tabs"><button class="auth-tab active" id="tab-login" onclick="setAuthMode('login')">Sign in</button><button class="auth-tab" id="tab-register" onclick="setAuthMode('register')">Create account</button></div>
+        <h2 class="auth-title" id="auth-title">Welcome back.</h2>
+        <p class="auth-sub" id="auth-sub">Sign in to jump back into the arena.</p>
+        <form id="auth-form">
+          <div class="field"><label for="username">Username</label><input id="username" name="username" autocomplete="username" minlength="3" maxlength="16" pattern="[A-Za-z0-9_]{3,16}" placeholder="e.g. knight_42" required /></div>
+          <div class="field"><label for="password">Password</label><input id="password" name="password" type="password" autocomplete="current-password" minlength="6" placeholder="At least 6 characters" required /></div>
+          <div class="field hidden" id="level-field"><label for="level">Your starting level</label><select id="level" name="level"><option value="new">New to chess · 200 Elo</option><option value="beginner" selected>Beginner · 600 Elo</option><option value="intermediate">Intermediate · 1100 Elo</option><option value="pro">Pro · 1650 Elo</option></select></div>
+          <button class="btn btn-primary auth-submit" id="auth-submit" type="submit">Sign in <span>→</span></button>
+          <div id="auth-message" class="message" role="status"></div>
+        </form>
+        <p class="fineprint">Usernames use 3–16 letters, numbers, or underscores. Your password is stored as a one-way hash on the server.</p>
+      </section>
+    </section>
+
+    <section id="app" class="hidden">
+      <section id="arena-page">
+        <div class="arena-header">
+          <div><span class="eyebrow">THE ARENA</span><h1 id="welcome-title">Ready for a game?</h1><p>Pick a time control. Your opponent is just a move away.</p></div>
+          <button class="btn btn-secondary btn-small" onclick="refreshStatus(true)">↻ Refresh</button>
+        </div>
+        <div id="queue-status" class="status-box hidden"><div class="spinner"></div><div><strong>Finding your opponent…</strong><span id="queue-message">Looking for a close match. A bot may join if the queue is quiet.</span></div><button class="btn btn-secondary btn-small" onclick="cancelQueue()">Cancel</button></div>
+        <div class="arena-grid">
+          <section>
+            <div class="section-head"><div><span class="eyebrow">CHOOSE YOUR CLOCK</span><h2>Quick play</h2><p>Win +30 Elo · Loss −25 Elo · Draw 0</p></div></div>
+            <div class="time-card-grid">
+              <button class="time-card" onclick="queueMatch('bullet')"><span class="time-symbol">ϟ</span><strong>Bullet</strong><span>1 minute each</span><span class="play-label">Play now ↗</span></button>
+              <button class="time-card" onclick="queueMatch('blitz')"><span class="time-symbol">♞</span><strong>Blitz</strong><span>5 minutes each</span><span class="play-label">Play now ↗</span></button>
+              <button class="time-card" onclick="queueMatch('rapid')"><span class="time-symbol">♜</span><strong>Rapid</strong><span>10 minutes each</span><span class="play-label">Play now ↗</span></button>
+            </div>
+            <div class="section-head"><div><span class="eyebrow">HOW IT WORKS</span><h2>Keep it simple.</h2></div></div>
+            <div class="surface side-panel"><div class="profile-summary"><div class="avatar">♟</div><div><strong>Find a fair match</strong><small>Matchmaking looks for players near your rating.</small></div></div><div class="profile-summary"><div class="avatar">◷</div><div><strong>Every second counts</strong><small>Your clock runs only while it is your turn.</small></div></div><div class="profile-summary" style="border:0;padding-bottom:0;margin-bottom:0"><div class="avatar">✦</div><div><strong>No one around?</strong><small>Built-in chess opponents can keep the board active.</small></div></div></div>
+          </section>
+          <aside class="surface side-panel">
+            <span class="eyebrow">YOUR PROFILE</span>
+            <div class="profile-summary"><div class="avatar">♞</div><div><strong id="profile-name">Player</strong><small id="profile-bracket">Rated competitor</small></div></div>
+            <div class="mini-stats"><div class="mini-stat"><strong id="profile-elo">—</strong><span>Rating</span></div><div class="mini-stat"><strong id="profile-games">0</strong><span>Games</span></div><div class="mini-stat"><strong id="profile-wins">0</strong><span>Wins</span></div></div>
+            <div class="side-head"><h3>Live arena</h3><span class="tiny-label">NOW</span></div>
+            <p class="panel-sub">Players and games update as the server checks in. Leave this tab open while you queue.</p>
+            <div class="mini-stats"><div class="mini-stat"><strong id="arena-players">—</strong><span>Online</span></div><div class="mini-stat"><strong id="arena-games">—</strong><span>Playing</span></div><div class="mini-stat"><strong id="arena-queue">—</strong><span>In queues</span></div></div>
+            <button class="btn btn-secondary" style="width:100%" onclick="logout()">Sign out</button>
+          </aside>
+        </div>
+      </section>
+
+      <section id="game-page" class="hidden">
+        <div class="game-toolbar"><div><h1>Live match</h1><p id="game-subtitle">Chess Studio · Online rated game</p></div><button class="btn btn-secondary btn-small" onclick="leaveGameView()">← Back to arena</button></div>
+        <div id="chess-warning" class="no-library hidden">The chess rules library did not load. Check your internet connection and refresh the page to load the chess board.</div>
+        <div class="game-layout">
+          <section class="surface board-surface">
+            <div class="player-strip" id="top-player"></div>
+            <div class="chessboard" id="chessboard" aria-label="Chess board"></div>
+            <div class="player-strip player-bottom" id="bottom-player"></div>
+            <div id="result-box" class="game-result hidden"></div>
+            <div class="board-footer"><div class="turn-status" id="turn-status"><i class="turn-dot"></i><span>Waiting for server…</span></div><div class="board-actions"><button class="btn btn-secondary btn-small" id="draw-button" onclick="drawAction()">Offer draw</button><button class="btn btn-danger btn-small" id="resign-button" onclick="resignGame()">Resign</button></div></div>
+          </section>
+          <aside class="game-side">
+            <section class="surface"><div class="side-head"><h3>Move history</h3><span class="tiny-label" id="move-count">0 moves</span></div><div id="moves-list" class="moves-list"><div class="empty-state" style="grid-column:1/-1">The opening move is yours.</div></div></section>
+            <section class="surface"><div class="side-head"><h3>Game chat</h3><span class="tiny-label">LIVE</span></div><div id="chat-messages" class="chat-messages"><div class="empty-state">Say good luck before the first move.</div></div><form id="chat-form" class="chat-form"><input id="chat-text" class="chat-input" maxlength="200" autocomplete="off" placeholder="Type a message…" /><button class="btn btn-primary" type="submit" aria-label="Send chat">↑</button></form></section>
+          </aside>
+        </div>
+      </section>
+    </section>
+  </main>
+  <footer class="footer"><span>© <span id="year"></span> Chess Studio</span><span>Play fair · Respect your opponent · Enjoy the game</span></footer>
+</div>
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+<script>
+(() => {
+  const $ = id => document.getElementById(id);
+  const state = { token: localStorage.getItem('chess_studio_token') || '', me: null, authMode: 'login', screen: 'arena', queued: null, gameId: null, liveGame: null, chess: null, selected: null, movePending: false, polling: false, lastInfoAt: 0, lastChatId: -1 };
+  let toastTimer = null;
+  const levelNames = { new: 'New to chess', beginner: 'Beginner', intermediate: 'Intermediate', pro: 'Pro', bot: 'Built-in opponent' };
+  const pieceGlyph = { wp:'♙',wn:'♘',wb:'♗',wr:'♖',wq:'♕',wk:'♔',bp:'♟',bn:'♞',bb:'♝',br:'♜',bq:'♛',bk:'♚' };
+
+  function toast(message, error=false) { const el=$('toast'); el.textContent=message; el.classList.toggle('error',error); el.classList.add('show'); clearTimeout(toastTimer); toastTimer=setTimeout(()=>el.classList.remove('show'),2900); }
+  async function api(path, data={}, auth=true) {
+    const payload={...data}; if (auth && state.token && !('token' in payload)) payload.token=state.token;
+    try {
+      const r=await fetch('/api/'+path,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+      const out=await r.json(); return out;
+    } catch(e) { return {ok:false,offline:true,error:'Could not reach Chess Studio. Check the connection and try again.'}; }
+  }
+  function setAuthMode(mode) {
+    state.authMode=mode; const reg=mode==='register';
+    $('tab-login').classList.toggle('active',!reg); $('tab-register').classList.toggle('active',reg);
+    $('level-field').classList.toggle('hidden',!reg); $('auth-title').textContent=reg?'Join the arena.':'Welcome back.';
+    $('auth-sub').textContent=reg?'Create a player profile and start your rating journey.':'Sign in to jump back into the arena.';
+    $('auth-submit').innerHTML=reg?'Create account <span>→</span>':'Sign in <span>→</span>';
+    $('password').autocomplete=reg?'new-password':'current-password'; $('auth-message').textContent='';
+  }
+  window.setAuthMode=setAuthMode;
+  window.focusAuth=mode=>{setAuthMode(mode);$('username').focus();$('auth-card').scrollIntoView({behavior:'smooth',block:'center'});};
+  window.goHome=()=>{ if(state.me){state.screen='arena';renderApp();}else{$('landing').classList.remove('hidden');window.scrollTo({top:0,behavior:'smooth'});} };
+
+  $('auth-form').addEventListener('submit', async e=>{
+    e.preventDefault(); const btn=$('auth-submit'), msg=$('auth-message'); btn.disabled=true; msg.style.color='var(--muted)'; msg.textContent=state.authMode==='register'?'Creating your account…':'Signing you in…';
+    const data={username:$('username').value.trim(),password:$('password').value}; const path=state.authMode==='register'?'register':'login'; if(path==='register')data.bracket=$('level').value;
+    const out=await api(path,data,false); btn.disabled=false;
+    if(!out.ok){msg.style.color='var(--red)';msg.textContent=out.error||'Could not sign in.';return;}
+    state.token=out.token;state.me=out.me;localStorage.setItem('chess_studio_token',state.token);localStorage.setItem('chess_studio_user',state.me.name);state.screen='arena';state.queued=null;state.gameId=null;state.liveGame=null;
+    msg.textContent='';renderApp();toast(path==='register'?'Account created. Welcome to Chess Studio!':'Welcome back, '+state.me.name+'.');
+  });
+
+  function renderHeader() {
+    if(state.me){$('header-account').innerHTML=`<div class="user-pill"><span class="rating-dot">♟</span><span>${escapeHtml(state.me.name)}</span><span class="rating-dot">${Number(state.me.elo)||0}</span></div>`;}
+    else $('header-account').innerHTML='<button class="btn btn-secondary btn-small" onclick="focusAuth(\'login\')">Sign in</button>';
+  }
+  function renderApp() {
+    renderHeader(); const signed=!!state.me; $('landing').classList.toggle('hidden',signed); $('app').classList.toggle('hidden',!signed);
+    $('arena-page').classList.toggle('hidden',!signed||state.screen==='game'); $('game-page').classList.toggle('hidden',!signed||state.screen!=='game');
+    if(!signed)return;
+    $('welcome-title').textContent='Ready, '+state.me.name+'?'; $('profile-name').textContent=state.me.name; $('profile-bracket').textContent=(levelNames[state.me.bracket]||'Rated competitor')+' · player profile';
+    $('profile-elo').textContent=state.me.elo; $('profile-games').textContent=state.me.games; $('profile-wins').textContent=state.me.wins;
+    $('queue-status').classList.toggle('hidden',!state.queued || state.screen==='game');
+    if(state.queued){$('queue-message').textContent='Searching '+state.queued+' · looking for a close match. A built-in opponent may join if the queue is quiet.';}
+    if(state.screen==='game' && state.liveGame) updateGameUI(state.liveGame);
+  }
+  function escapeHtml(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+  function renderStats(info) {
+    const queues=info.queues||{}; const q=Object.values(queues).reduce((a,b)=>a+(Number(b)||0),0);
+    $('stat-players').textContent=info.players_online??'—'; $('stat-games').textContent=info.games??'—'; $('stat-queues').textContent='3';
+    $('server-label').textContent='SERVER ONLINE'; $('arena-players').textContent=info.players_online??'—'; $('arena-games').textContent=info.games??'—'; $('arena-queue').textContent=q;
+  }
+  async function refreshInfo() { const info=await api('info',{},false); if(info.ok)renderStats(info); else $('server-label').textContent='RECONNECTING'; }
+  window.logout=async()=>{if(state.queued) await api('unqueue');state.token='';state.me=null;state.queued=null;state.gameId=null;state.liveGame=null;state.screen='arena';localStorage.removeItem('chess_studio_token');localStorage.removeItem('chess_studio_user');renderHeader();renderApp();setAuthMode('login');toast('You have signed out.');};
+
+  async function queueMatch(tc) {
+    if(!state.me)return focusAuth('login');
+    if(state.screen==='game')return;
+    const result=await api('queue',{tc}); if(!result.ok){toast(result.error||'Could not start matchmaking.',true);return;}
+    state.queued=tc;state.screen='arena';renderApp();toast('Searching for a '+tc+' opponent…');await refreshStatus(false);
+  }
+  window.queueMatch=queueMatch;
+  async function cancelQueue(){const out=await api('unqueue');state.queued=null;renderApp();if(out.ok)toast('Matchmaking cancelled.');else toast(out.error||'Could not cancel queue.',true);}
+  window.cancelQueue=cancelQueue;
+  async function refreshStatus(showToast=false) {
+    if(!state.token)return;
+    const out=await api('status');
+    if(out.auth===false){state.token='';state.me=null;localStorage.removeItem('chess_studio_token');renderApp();setAuthMode('login');toast('Please sign in again.',true);return;}
+    if(!out.ok){if(showToast)toast(out.error||'Status unavailable.',true);return;}
+    state.me=out.me||state.me; if(out.queued)state.queued=out.queued;else if(!state.gameId)state.queued=null;
+    if(out.game && state.screen!=='game'){state.gameId=out.game;state.screen='game';state.selected=null;state.lastChatId=-1;renderApp();}
+    if(state.screen!=='game')renderApp();
+    if(showToast)toast('Arena status refreshed.');
+  }
+  window.refreshStatus=refreshStatus;
+
+  function startGameView(id) { state.gameId=id;state.screen='game';state.queued=null;state.selected=null;state.lastChatId=-1;state.liveGame=null;renderApp(); }
+  async function fetchGame() {
+    if(!state.gameId||state.screen!=='game'||state.movePending)return;
+    const out=await api('game',{id:state.gameId});
+    if(out.ok&&out.game){state.liveGame=out.game;updateGameUI(out.game);}
+    else if(out.auth===false){toast('Please sign in again.',true);}
+  }
+  function rebuildChess(game) {
+    if(typeof Chess==='undefined'){state.chess=null;$('chess-warning').classList.remove('hidden');return null;}
+    $('chess-warning').classList.add('hidden'); const c=new Chess();
+    for(const uci of (game.moves||[])){try{c.move({from:uci.slice(0,2),to:uci.slice(2,4),promotion:uci[4]||'q'});}catch(e){}}
+    state.chess=c;return c;
+  }
+  function formatClock(ms){let s=Math.max(0,Number(ms)||0)/1000;if(s<10)return '0:'+s.toFixed(1).padStart(4,'0');return Math.floor(s/60)+':'+String(Math.floor(s%60)).padStart(2,'0');}
+  function playerHtml(player,side,active,clock,top){const avatar=player?.avatar?`<img src="${escapeHtml(player.avatar)}" alt="" style="width:100%;height:100%;object-fit:cover;border-radius:inherit">`:side==='white'?'♔':'♚';return `<div class="player-data"><div class="player-avatar">${avatar}</div><div class="player-copy"><strong>${escapeHtml(player?.name||'Player')}</strong><small>${side==='white'?'White':'Black'} · ${Number(player?.elo)||0} Elo ${player?.online?'· online':''}</small></div></div><div class="clock ${active?'active':''}" aria-label="${side} clock">${formatClock(clock)}</div>`;}
+  function renderBoard(game,c) {
+    const el=$('chessboard');if(!el||!c)return;
+    const flipped=game.you==='black'; const board=c.board(); const selected=state.selected;
+    const legal=selected?c.moves({square:selected,verbose:true}).map(m=>m.to):[];
+    const history=game.moves||[];const last=history.length?history[history.length-1]:'';const lastFrom=last.slice(0,2),lastTo=last.slice(2,4);
+    let html='';
+    for(let r=0;r<8;r++)for(let col=0;col<8;col++){
+      const br=flipped?7-r:r,bc=flipped?7-col:col; const file='abcdefgh'[bc],rank=8-br,square=file+rank,piece=board[br][bc];
+      const isLight=(br+bc)%2===0; const isLast=square===lastFrom||square===lastTo; const isSel=square===selected; const isTarget=legal.includes(square);
+      let classes='square '+(isLight?'light':'dark')+(isLast?' last':'')+(isSel?' selected':'');
+      const glyph=piece?pieceGlyph[piece.color+piece.type]:'';
+      let coords='';if((!flipped&&bc===0)||(flipped&&bc===7))coords+=`<span class="coord rank">${rank}</span>`;if((!flipped&&br===7)||(flipped&&br===0))coords+=`<span class="coord file">${file}</span>`;
+      html+=`<button class="${classes}" data-square="${square}" aria-label="${square}${piece?' '+piece.color+' '+piece.type:''}">${coords}${glyph?`<span class="piece ${piece.color==='w'?'white':'black'}">${glyph}</span>`:''}${isTarget?(piece?'<span class="capture-ring"></span>':'<span class="dot"></span>'):''}</button>`;
+    }
+    el.innerHTML=html;el.querySelectorAll('[data-square]').forEach(btn=>btn.addEventListener('click',()=>onSquareClick(btn.dataset.square)));
+  }
+  function updateMoves(game,c){const el=$('moves-list');const hist=c?c.history():[];$('move-count').textContent=(hist.length)+' '+(hist.length===1?'move':'moves');if(!hist.length){el.innerHTML='<div class="empty-state" style="grid-column:1/-1">The opening move is yours.</div>';return;}let html='';for(let i=0;i<hist.length;i+=2){const n=(i/2)+1;const white=hist[i]||'';const black=hist[i+1]||'';const wl=i===hist.length-1?'latest':'';const bl=i+1===hist.length-1?'latest':'';html+=`<div class="move-no">${n}.</div><div class="${wl}">${escapeHtml(white)}</div><div class="${bl}">${escapeHtml(black)}</div>`;}el.innerHTML=html;el.scrollTop=el.scrollHeight;}
+  function updateChat(game){const el=$('chat-messages');const chat=game.chat||[];const newest=chat.length?chat[chat.length-1].id:-1;if(state.lastChatId!==newest){const wasBottom=el.scrollHeight-el.scrollTop-el.clientHeight<55;el.innerHTML=chat.length?chat.map(m=>`<div class="chat-line ${m.from===game.you?'mine':''}"><b>${escapeHtml(m.name||m.from)}</b>${escapeHtml(m.text)}<span class="time">${new Date((m.t||Date.now()/1000)*1000).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'})}</span></div>`).join(''):'<div class="empty-state">Say good luck before the first move.</div>';if(wasBottom)el.scrollTop=el.scrollHeight;state.lastChatId=newest;}}
+  function describeResult(game){if(game.status!=='over')return null;const result=game.result;let won=null;if(result==='1/2-1/2')return {title:'Game drawn',detail:game.reason||'Draw'};if(result==='aborted')return {title:'Game aborted',detail:game.reason||'No rating change'};won=(result==='1-0'&&game.you==='white')||(result==='0-1'&&game.you==='black');return {title:won?'Victory!':'Game over',detail:(game.reason||'Finished')+(game.rating&&game.rating[game.you]!=null?' · '+(game.rating[game.you]>0?'+':'')+game.rating[game.you]+' Elo':'')};}
+  function updateGameUI(game){
+    if(state.screen!=='game')return;
+    $('game-subtitle').textContent=`${({bullet:'Bullet · 1 minute',blitz:'Blitz · 5 minutes',rapid:'Rapid · 10 minutes'})[game.tc]||'Online rated game'} · ${game.id}`;
+    const c=rebuildChess(game); if(!c)return;
+    const you=game.you;const opponent=you==='white'?'black':'white';const top=game.players?.[opponent],bottom=game.players?.[you];
+    $('top-player').innerHTML=playerHtml(top,opponent,game.status==='playing'&&game.turn===opponent,game.clock?.[opponent],true);
+    $('bottom-player').innerHTML=playerHtml(bottom,you,game.status==='playing'&&game.turn===you,game.clock?.[you],false);
+    renderBoard(game,c);updateMoves(game,c);updateChat(game);
+    const result=describeResult(game);const rb=$('result-box');rb.classList.toggle('hidden',!result);rb.innerHTML=result?`<strong>${escapeHtml(result.title)}</strong><span>${escapeHtml(result.detail)}</span>`:'';
+    const canMove=game.status==='playing'&&game.turn===you&&!state.movePending;
+    $('turn-status').innerHTML=game.status==='over'?'<i class="turn-dot"></i><span>Game finished · head back to the arena when ready.</span>':`<i class="turn-dot"></i><span>${canMove?'Your move':(game.turn==='white'?'White':'Black')+' to move'}${game.draw_offer&&game.draw_offer!==you?' · Opponent offers a draw':''}</span>`;
+    const draw=$('draw-button'); if(game.status!=='playing'){draw.disabled=true;draw.textContent='Game finished';}else{draw.disabled=false;if(game.draw_offer&&game.draw_offer!==you)draw.textContent='Accept draw';else if(game.draw_offer===you)draw.textContent='Draw offered';else draw.textContent='Offer draw';}
+    $('resign-button').disabled=game.status!=='playing';
+  }
+  async function onSquareClick(square){const game=state.liveGame,c=state.chess;if(!game||!c||game.status!=='playing'||game.turn!==game.you||state.movePending)return;
+    const piece=c.get(square);if(state.selected){const candidates=c.moves({square:state.selected,verbose:true});const move=candidates.find(m=>m.to===square);if(move){const uci=state.selected+square+(move.flags&&move.flags.includes('p')?'q':'');const from=state.selected;state.selected=null;await sendMove(uci);return;}}
+    if(piece&&piece.color===(game.you==='white'?'w':'b'))state.selected=square;else state.selected=null;renderBoard(game,c);
+  }
+  async function sendMove(uci){if(state.movePending)return;state.movePending=true;updateGameUI(state.liveGame);const out=await api('move',{id:state.gameId,uci});state.movePending=false;if(out.ok&&out.game){state.liveGame=out.game;state.selected=null;updateGameUI(out.game);}else{if(out.game)state.liveGame=out.game;toast(out.error||'Move was not accepted.',true);if(state.liveGame)updateGameUI(state.liveGame);}}
+  async function drawAction(){const g=state.liveGame;if(!g||g.status!=='playing')return;let action='offer';if(g.draw_offer&&g.draw_offer!==g.you)action='accept';const out=await api('draw',{id:state.gameId,action});if(out.ok&&out.game){state.liveGame=out.game;updateGameUI(out.game);toast(action==='accept'?'Draw accepted.':'Draw offer sent.');}else toast(out.error||'Could not offer a draw.',true);}
+  window.drawAction=drawAction;
+  async function resignGame(){if(!state.liveGame||state.liveGame.status!=='playing')return;if(!confirm('Resign this game? Your rating may change.'))return;const out=await api('resign',{id:state.gameId});if(out.ok&&out.game){state.liveGame=out.game;state.selected=null;updateGameUI(out.game);}else toast(out.error||'Could not resign.',true);}
+  window.resignGame=resignGame;
+  $('chat-form').addEventListener('submit',async e=>{e.preventDefault();const field=$('chat-text'),text=field.value.trim();if(!text||!state.gameId)return;field.disabled=true;const out=await api('chat',{id:state.gameId,text});field.disabled=false;if(out.ok&&out.game){field.value='';state.liveGame=out.game;updateGameUI(out.game);field.focus();}else toast(out.error||'Could not send message.',true);});
+  window.leaveGameView=()=>{state.screen='arena';state.gameId=null;state.liveGame=null;state.selected=null;state.queued=null;api('unqueue').catch(()=>{});renderApp();toast('Back in the arena.');};
+
+  async function heartbeat(){if(state.polling)return;state.polling=true;try{
+      if(Date.now()-state.lastInfoAt>7000){await refreshInfo();state.lastInfoAt=Date.now();}
+      if(state.token){await refreshStatus(false);if(state.screen==='game'&&state.gameId)await fetchGame();}
+    }finally{state.polling=false;}}
+  async function init(){ $('year').textContent=new Date().getFullYear();
+    if(typeof Chess==='undefined'){$('server-label').textContent='BOARD LIBRARY OFFLINE';}
+    await refreshInfo();state.lastInfoAt=Date.now();
+    if(state.token){const out=await api('me');if(out.ok){state.me=out.me;renderApp();}else{state.token='';localStorage.removeItem('chess_studio_token');renderApp();}}else{renderHeader();setAuthMode('login');}
+    setInterval(heartbeat,1000);
+  }
+  init();
+})();
+</script>
+</body>
+</html>
