@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7e8ad">
+  <meta name="description" content="Chess Studio — a golden, animated chess playground.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <title>Chess Studio</title>
+  <link rel="stylesheet" href="styles.css">
+  <script type="module" src="app.js"></script>
+</head>
+<body>
+  <div class="ambient ambient-a"></div><div class="ambient ambient-b"></div>
+  <main class="stage" id="stage">
+    <div class="outer-frame">
+      <div class="chess-wall" aria-hidden="true">
+        <span class="ghost p1">♜</span><span class="ghost p2">♞</span><span class="ghost p3">♝</span><span class="ghost p4">♛</span><span class="ghost p5">♚</span><span class="ghost p6">♝</span><span class="ghost p7">♞</span><span class="ghost p8">♜</span>
+        <span class="ghost p9">♟</span><span class="ghost p10">♟</span><span class="ghost p11">♟</span><span class="ghost p12">♟</span><span class="ghost p13">♟</span><span class="ghost p14">♟</span><span class="ghost p15">♟</span><span class="ghost p16">♟</span>
+        <span class="ghost p17">♙</span><span class="ghost p18">♙</span><span class="ghost p19">♙</span><span class="ghost p20">♙</span><span class="ghost p21">♙</span><span class="ghost p22">♙</span><span class="ghost p23">♙</span><span class="ghost p24">♙</span>
+        <span class="ghost p25">♖</span><span class="ghost p26">♘</span><span class="ghost p27">♗</span><span class="ghost p28">♕</span><span class="ghost p29">♔</span><span class="ghost p30">♗</span><span class="ghost p31">♘</span><span class="ghost p32">♖</span>
+      </div>
+      <header class="topbar">
+        <button class="chip friends-chip" data-screen="online"><span class="flame">♟</span> Friends <span class="tiny-dot"></span></button>
+        <button class="chip account-chip" id="accountBtn"><span class="avatar">♞</span><span id="accountName">GUEST PLAYER</span><span class="chevron">⌄</span></button>
+      </header>
+      <section class="view home-view" id="homeView">
+        <div class="title-plaque"><span class="crown">♛</span><h1>CHESS STUDIO</h1><p class="subtitle" id="subtitle">YOUR NEXT MOVE STARTS HERE</p></div>
+        <nav class="menu-panel" aria-label="Main menu">
+          <button class="menu-btn" data-screen="online">Play Online <span>♞</span></button>
+          <button class="menu-btn" data-screen="basics">Chess Basics <span>♙</span></button>
+          <button class="menu-btn" data-screen="bot">Play vs Bot</button>
+          <button class="menu-btn" data-screen="coach">Play vs Coach <span>♟</span></button>
+          <button class="menu-btn" data-screen="puzzles">Puzzles <span>♜</span></button>
+          <button class="menu-btn" data-screen="local">2 Player Match</button>
+          <button class="menu-btn" data-screen="inventory">Inventory</button>
+          <button class="menu-btn boss-btn" data-screen="boss">☠ FINAL BOSS ☠</button>
+        </nav>
+        <div class="home-bottom"><span>♔ &nbsp; THINK. PLAY. GROW. &nbsp; ♔</span><span class="sparkle-word">✦ &nbsp; ♕ &nbsp; ✦</span></div>
+      </section>
+      <section class="view inner-view hidden" id="contentView" aria-live="polite"></section>
+    </div>
+  </main>
+  <div id="toast" class="toast" role="status"></div>
+  <footer class="credits">CHESS STUDIO <span>•</span> MADE FOR THE LOVE OF THE GAME</footer>
+</body>
+</html>
